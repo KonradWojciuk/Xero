@@ -50,4 +50,12 @@ namespace CopierLibrary
         void Scan(out IDocument document, IDocument.FormatType formatType);
     }
 
+    public interface IFax : IDevice
+    {
+        // dokument jest wysyłany na podany przez nas faks, jeśli urządzenie jest włączone
+        // w przeciwnym wypadku nic się nie dzieje
+        void SendFax(string destination, in IDocument document);
+        // pozwala na odebraniu faksu od innego urządzenia
+        void ReceiveFax(DateTime date, string sender, in IDocument document);
+    }
 }
