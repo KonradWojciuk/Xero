@@ -1,11 +1,50 @@
 ﻿using CopierLibrary;
 
-namespace Zadanie2
+namespace Zadanie3
 {
     public class Program
     {
         static void Main(string[] args)
         {
+            // Test klasy Photocopier
+            Copier photocopier = new Copier();
+            photocopier.PowerOn();
+
+            IDocument doc1 = new PDFDocument("PDFTest");
+            IDocument doc2 = new TextDocument("TextTest");
+            IDocument doc3 = new ImageDocument("ImageTest");
+
+            photocopier.Print(doc1);
+            photocopier.Print(doc2);
+            photocopier.PowerOff();
+            photocopier.Print(doc3);
+            photocopier.PowerOn();
+            photocopier.Print(doc3);
+
+            photocopier.Scan(out doc1, IDocument.FormatType.PDF);
+            photocopier.PowerOff();
+            photocopier.Scan(out doc2, IDocument.FormatType.TXT);
+            photocopier.Scan(out doc3, IDocument.FormatType.JPG);
+            photocopier.PowerOn();
+            photocopier.Scan(out doc2, IDocument.FormatType.TXT);
+            photocopier.Scan(out doc3, IDocument.FormatType.JPG);
+
+            photocopier.ScanAndPrint();
+            photocopier.ScanAndPrint();
+            photocopier.ScanAndPrint();
+            photocopier.ScanAndPrint();
+            photocopier.PowerOff();
+            photocopier.ScanAndPrint();
+            photocopier.ScanAndPrint();
+            photocopier.PowerOn();
+            photocopier.ScanAndPrint();
+            photocopier.ScanAndPrint();
+
+            Console.WriteLine("Liczba włęczeń drukarki: " + photocopier.Counter);
+            Console.WriteLine("Liczba skanów: " + photocopier.ScanCounter);
+            Console.WriteLine("Liczba druków: " + photocopier.PrintCounter);
+
+            // Test klasy MultifuncionalDevice
             MultifuncionalDevice multifuncionalDevice = new MultifuncionalDevice();
 
             multifuncionalDevice.PowerOn();
@@ -13,10 +52,6 @@ namespace Zadanie2
             multifuncionalDevice.PowerOn();
             multifuncionalDevice.PowerOff();
             multifuncionalDevice.PowerOn();
-
-            IDocument doc1 = new PDFDocument("PDFTest");
-            IDocument doc2 = new TextDocument("TextTest");
-            IDocument doc3 = new ImageDocument("ImageTest");
 
             multifuncionalDevice.Print(doc1);
             multifuncionalDevice.Print(doc2);
@@ -60,7 +95,7 @@ namespace Zadanie2
             Console.WriteLine("Liczba skanów: " + multifuncionalDevice.ScanCounter);
             Console.WriteLine("Liczba druków: " + multifuncionalDevice.PrintCounter);
             Console.WriteLine("Liczba wysłanych faksów: " + multifuncionalDevice.SendFaxCounter);
-            Console.WriteLine("Liczba przyjętych faksów: " + multifuncionalDevice.RecivedCounter);
+            Console.WriteLine("Liczba przyjętych faksów: " + multifuncionalDevice.RecivedFaxCounter);
         }
     }
 }
